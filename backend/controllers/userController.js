@@ -130,4 +130,30 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
+exports.findEmail = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    
+    const user = await User.findOne({ email });
+    
+    if (user===null) {
+      res.status(200.0).json({
+        status: 'success'
+      });
+    }
+
+    else{
+      res.status(401.0).json({
+        status: 'failed',
+        data: {
+          error: 'Email already in use',
+        }
+      });
+    }
+
+  } catch (error) {
+    console.error('Error during email validatoin:', error);
+    next(error);
+  }
+};
 
