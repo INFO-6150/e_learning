@@ -1,0 +1,133 @@
+const User = require('../models/users');
+const bcrypt = require('bcryptjs');
+const validator = require('../utils/validator');
+exports.addUser = async (req, res) => {
+  try {
+    // Validate the password
+    const password = req.body.password;
+    if (!validator.validatePassword(password)) {
+      return res.status(400).send('Password doesnot match the requriments, at least one digit,  one special character, one uppercase letter, one lowercase letter, 8 characters');
+    }
+
+    // Check if email already exists
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.status(400).send('Email already in use.');
+    }
+
+    // Create new user
+    let user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phone: req.body.phone,
+      password: password, // Ensure password is hashed in the User model's pre-save hook
+      userType: req.body.userType, // 'professor' or 'student'
+      ...(req.file && { image: req.file.path })
+    });
+
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+exports.loginUser = async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      console.log('Attempting login for:', email); // For debugging
+
+      // Query the user by email and select the password field as well
+      const user = await User.findOne({ email }).select('+password');
+
+      if (!user) {
+        return res.status(401).json({ message: 'Incorrect email' });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      console.log('Password match:', passwordMatch); // For debugging
+
+      if (!passwordMatch) {
+        return res.status(401).json({ message: 'Incorrect password' });
+      }
+
+      console.log('Login successful for:', email);
+
+      // Send the user's ID and full name in the response
+      res.status(200.0).json({
+        status: 'success',
+        data: {
+          userId: user._id,
+          fullName: user.fullName // Access fullName as a property of the user document
+        }
+      });
+
+    } catch (error) {
+      console.error('Error during login:', error);
+      next(error);
+    }
+};
+
+exports.updateUser = async (req, res) => {
+  const user = await User.findOneAndUpdate({ email: req.body.email }, req.body, { new: true });
+  if (!user) return res.status(404).send('User not found');
+  res.send(user);
+};
+
+exports.deleteUser = async (req, res) => {
+  const user = await User.findOneAndDelete({ email: req.body.email });
+  if (!user) return res.status(404).send('User not found');
+  res.send('User deleted successfully');
+};
+
+module.exports = exports;
+
+
+exports.getAllUsers = async (req, res, next) => {
+    try {
+        const users = await User.find().select('firstName lastName email image');
+
+        res.status(200).send({ users });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    console.log('Attempting login for:', email); // For debugging
+
+    // Query the user by email and select the password field as well
+    const user = await User.findOne({ email }).select('+password');
+
+    if (!user) {
+      return res.status(401).json({ message: 'Incorrect email' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log('Password match:', passwordMatch); // For debugging
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Incorrect password' });
+    }
+
+    console.log('Login successful for:', email);
+
+    // Send the user's ID and full name in the response
+    res.status(200.0).json({
+      status: 'success',
+      data: {
+        userId: user._id,
+        fullName: user.fullName // Access fullName as a property of the user document
+      }
+    });
+
+  } catch (error) {
+    console.error('Error during login:', error);
+    next(error);
+  }
+};
+
+
