@@ -10,7 +10,7 @@ router.post('/register', upload.single('image'), userController.addUser);
 router.post('/login', userController.loginUser);
 
 // Route to update an existing user's information
-router.put('/update', userController.updateUser);
+router.put('/update', upload.single('image'), userController.updateUser);
 
 // Route to delete a user by email
 router.delete('/delete', userController.deleteUser);

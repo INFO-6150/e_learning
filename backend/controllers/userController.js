@@ -70,10 +70,31 @@ exports.loginUser = async (req, res, next) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const user = await User.findOneAndUpdate({ email: req.body.email }, req.body, { new: true });
-  if (!user) return res.status(404).send('User not found');
-  res.send(user);
+  try {
+    const updateData = { ...req.body };
+
+    // Check if a file is included in the request and update the image field
+    if (req.file && req.file.location) {
+      updateData.image = req.file.location;
+    }
+
+    // Perform the update, using only the provided fields
+    const user = await User.findOneAndUpdate(
+      { email: req.body.email }, 
+      { $set: updateData }, 
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
+
 
 exports.deleteUser = async (req, res) => {
   const user = await User.findOneAndDelete({ email: req.body.email });

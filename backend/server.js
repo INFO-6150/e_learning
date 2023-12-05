@@ -3,6 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/users.js');
+const courseRoutes = require('./routes/courseRoutes');
 const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
 const cors = require('cors');
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 // User Routes
 app.use('/user', userRoutes);
-
+app.use('/api/courses', courseRoutes);
 // Error Handling Middleware
 app.use(errorHandler);
 
