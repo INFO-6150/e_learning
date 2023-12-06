@@ -29,6 +29,12 @@ const courseSchema = new mongoose.Schema({
       type: String,
     }
   }],
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   professor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

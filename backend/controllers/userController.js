@@ -71,19 +71,18 @@ exports.loginUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res) => {
   try {
+    const { id } = req.params;
     const updateData = { ...req.body };
-
+    
     // Check if a file is included in the request and update the image field
     if (req.file && req.file.location) {
       updateData.image = req.file.location;
     }
 
     // Perform the update, using only the provided fields
-    const user = await User.findOneAndUpdate(
-      { email: req.body.email }, 
-      { $set: updateData }, 
-      { new: true, runValidators: true }
-    );
+
+    const user = await User.findByIdAndUpdate(id,  { $set: updateData }, 
+      { new: true, runValidators: true });
 
     if (!user) {
       return res.status(404).send('User not found');
@@ -178,3 +177,29 @@ exports.findEmail = async (req, res, next) => {
   }
 };
 
+exports.findById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    // Directly pass the id to findById
+    const user = await User.findById(id);
+    
+    if (!user) {
+      // If user is not found, you can send a 404 Not Found status
+      return res.status(404).json({
+        status: 'failed',
+        message: 'User not found',
+      });
+    }
+
+    // If user is found, return the user
+    res.status(200).json({
+      status: 'success',
+      data: user
+    });
+
+  } catch (error) {
+    console.error('Error during user retrieval:', error);
+    next(error);
+  }
+};
