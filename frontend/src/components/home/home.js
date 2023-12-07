@@ -1,6 +1,10 @@
 import React from 'react';
 import Header from '../header/header'; // Assuming you have a Header component as previously discussed
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Layout from '../header/Layout';
+import './home.css'
+import Footer from '../footer/Footer';
+
 // Dummy data for courses and testimonials, replace with your actual data sources
 const featuredCourses = [
   { id: 1, title: "Course 1", description: "An introduction to course 1." },
@@ -17,7 +21,8 @@ const testimonials = [
 const HomePage = () => {
   return (
     <>
-      <Header />
+    <Layout>
+    <div className="home-page">
       <div className="container my-5">
         <section className="text-center my-5">
           <h1>Welcome to NestKnowledge</h1>
@@ -64,7 +69,10 @@ const HomePage = () => {
             </button>
           </div>
         </section>
+        <Footer />
       </div>
+      </div>
+      </Layout>
     </>
   );
 };

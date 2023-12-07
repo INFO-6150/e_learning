@@ -6,6 +6,8 @@ import Edit from '../assets/icon-edit.jpg'
 import { fetchUserDetails } from '../utils/api';
 import { updateUserDetails } from '../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../header/header';
+import Layout from '../header/Layout';
 
 const EditProfile = () => {
     const { user } = useContext(UserContext);
@@ -24,9 +26,12 @@ const EditProfile = () => {
 useEffect(() => {
     const fetchDetails = async () => {
     try {
-        const userId = user?.userId;
-        if (userId) {
-        const data = await fetchUserDetails(userId);
+        
+        const storedUserData = localStorage.getItem('user');
+        if (storedUserData) {
+        const userData = JSON.parse(storedUserData);
+        console.log('Retrieved user data:', userData);
+        const data = await fetchUserDetails(userData.userId);
         if (data.status === 'success') {
             setProfileData({
             image: data.data.image || defaultProfileImg,
@@ -74,7 +79,8 @@ useEffect(() => {
     e.preventDefault();
     
     try {
-      const userId = user?.userId;
+      const storedUserData = localStorage.getItem('user');
+      const userData = JSON.parse(storedUserData);
       const formData = new FormData();
       // Append other profile data fields to the formData
       formData.append('firstName', profileData.firstName);
@@ -89,7 +95,7 @@ useEffect(() => {
       }
       
       // Call the API function with the formData
-      const response = await updateUserDetails(userId, formData);
+      const response = await updateUserDetails(userData.userId, formData);
       
       // Log the response or handle the UI update
       console.log('Profile updated', response);
@@ -158,6 +164,9 @@ useEffect(() => {
   };
 
   return (
+    <>
+    <Layout>
+    <div className="home-page">
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-8">
@@ -217,6 +226,9 @@ useEffect(() => {
         </div>
       </div>
     </div>
+    </div>
+    </Layout>
+    </>
   );
 };
 

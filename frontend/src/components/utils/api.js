@@ -69,3 +69,11 @@ export const updateUserDetails = async (userId, formData) => {
     throw error;
   }
 };
+export const fetchCourses = async () => {
+  try {
+    const response = await api.get('/api/courses/');
+    return response.data; // Assuming the server responds with the courses in the 'data' key
+  } catch (error) {
+    throw error;
+  }
+};

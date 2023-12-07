@@ -17,8 +17,6 @@ router.delete('/delete', userController.deleteUser);
 
 router.get('/getAll', userController.getAllUsers);
 
-router.post('/login', userController.loginUser);
-
 router.post('/findEmail', userController.findEmail);
 
 router.post('/findById/:id', userController.findById);
