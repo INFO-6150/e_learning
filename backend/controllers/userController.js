@@ -46,7 +46,7 @@ exports.loginUser = async (req, res, next) => {
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password);
-      console.log('Password match:', passwordMatch); // For debugging
+      console.log('Password match:', user.password, password,  passwordMatch); // For debugging
 
       if (!passwordMatch) {
         return res.status(401).json({ message: 'Incorrect password' });
@@ -106,7 +106,7 @@ module.exports = exports;
 
 exports.getAllUsers = async (req, res, next) => {
     try {
-        const users = await User.find().select('firstName lastName email image');
+        const users = await User.find().select('firstName lastName email image password');
 
         res.status(200).send({ users });
     } catch (error) {
@@ -128,6 +128,8 @@ exports.loginUser = async (req, res, next) => {
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     console.log('Password match:', passwordMatch); // For debugging
+    console.log(user.password);
+    console.log(password)
 
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Incorrect password' });
@@ -228,9 +230,8 @@ exports.updatePassword = async (req, res, next) => {
     }
 
     // Hash the new password
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(newPassword, salt);
-
+    //const salt = await bcrypt.genSalt(10);
+    user.password = newPassword;
     await user.save();
 
     res.status(200).json({ message: 'Password updated successfully.' });
