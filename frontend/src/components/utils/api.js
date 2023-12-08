@@ -77,3 +77,12 @@ export const fetchCourses = async () => {
     throw error;
   }
 };
+
+export const updatePassword = async (userId, passwordData) => {
+  try {
+    const response = await api.put(`/user/updatePassword/${userId}`, passwordData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

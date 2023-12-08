@@ -9,6 +9,7 @@ import UserContext from './components/auth/UserContext';
 import EditProfile from './components/myProfile/EditProfile';
 import { SidebarContext } from './components/header/SideMenuContext';
 import Explore from './components/course/Explore';
+import PasswordReset from './components/myProfile/PasswordReset';
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/reset" element={<PasswordReset />} />
             {/* Add other routes here */}
           </Routes>
         </Router>

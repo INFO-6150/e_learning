@@ -34,6 +34,9 @@ const SideMenu = () => {
     navigate('/'); // Redirect to login page
   };
 
+  const handleReset = () => {
+    navigate('/reset'); // Redirect to login page
+  };
   const handleProfile = () => {
     navigate('/edit-profile'); // Redirect to login page
   };
@@ -80,7 +83,7 @@ const SideMenu = () => {
                 <div onClick={handleHome} class="nav_link"> <i class='bx bx-home nav_icon'></i> <span class="nav_name">Home</span> </div> 
                 <div onClick={handleExplore} class="nav_link"> <i class='bx bx-compass nav_icon'></i> <span class="nav_name">Explore</span> </div>
                 <div onClick={handleProfile} class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Edit Profile</span> </div> 
-                <div href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Password</span> </div> 
+                <div onClick={handleReset} class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Password</span> </div> 
               </div>
           </div> 
           <div class="nav_bottom">
