@@ -12,5 +12,7 @@ router.post('/uploadVideo/:courseId', upload.single('video'), courseController.u
 router.get('/', courseController.viewAllCourses);
 router.post('/register', courseController.registerStudentForCourse);
 router.post('/drop', courseController.dropCourse);
+router.get('/professor/:professorId', courseController.getCoursesByProfessor);
+
 
 module.exports = router;

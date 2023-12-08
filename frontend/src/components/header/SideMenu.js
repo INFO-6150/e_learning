@@ -8,6 +8,7 @@ import './sideMenuStyles.css'; // Update with the correct path to your CSS file
 import 'boxicons/css/boxicons.min.css';
 import { SidebarContext } from './SideMenuContext';
 import { useNavigate } from 'react-router-dom';
+import defaultProfileImg from '../assets/default-profile.png';
 
 const SideMenu = () => {
   const { user, setUser } = useContext(UserContext);
@@ -71,7 +72,7 @@ const SideMenu = () => {
             <i class={`bx ${isNavExpanded ? 'bx-x' : 'bx-menu'}`} ></i>
         </div>
         <div className="header_img">
-          <img src={userData.data.image} alt="Profile" />
+          <img src={userData.data.image || defaultProfileImg} alt="Profile" />
         </div>
       </header>
       <div className={`l-navbar ${isNavExpanded ? 'show' : ''}`} id="nav-bar">

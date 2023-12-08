@@ -174,3 +174,33 @@ exports.viewAllCourses = async (req, res) => {
     res.status(500).json({ message: 'Error fetching courses', error });
   }
 };
+
+// Function to get courses by a specific professor with detailed population
+exports.getCoursesByProfessor = async (req, res) => {
+  try {
+    const { professorId } = req.params;
+    // Populate multiple fields, assuming you have other references like 'reviews', 'category', etc.
+    const courses = await Course.find({ professor: professorId })
+      // .populate({
+      //   path: 'professor',
+      //   select: 'firstName lastName email image', // select fields you want to include
+      // })
+      // .populate({
+      //   path: 'students',
+      //   select: 'firstName lastName email', // assuming you store references to 'students' in your course
+      // })
+      // Add more populate if needed for other fields like 'reviews', 'category'
+      // .populate('reviews')
+      // .populate('category');
+
+    // If no courses found, return an empty array
+    if (!courses.length) {
+      return res.status(404).json({ message: 'No courses found for this professor' });
+    }
+
+    res.status(200).json(courses);
+  } catch (error) {
+    console.error("Error fetching courses for professor:", error);
+    res.status(500).json({ message: 'Error fetching courses', error });
+  }
+};
