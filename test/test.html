@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor's Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="test.css" rel="stylesheet"> <!-- Updated CSS file -->
+</head>
+
+<body>
+    <div class="container my-4">
+        <!-- Professor Details -->
+        <div class="professor-details">
+            <h1>Hi, Professor Pendem</h1>
+            <h5>Email: pendemmukulsai30@gmail.com</h5>
+        </div>
+
+        <!-- Courses Section -->
+        <h2 class="mt-4">Courses Taught</h2>
+        <div class="row">
+            <!-- Existing Courses -->
+            <!-- Course 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Introduction to Programming</h5>
+                        <p class="card-text">An introductory course in programming, covering the basics of algorithms,
+                            data structures, and software development.</p>
+                        <a href="course1.html" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Course 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Data Science Fundamentals</h5>
+                        <p class="card-text">Explore the fundamentals of data analysis, statistical modeling, and data
+                            visualization in Python.</p>
+                        <a href="course2.html" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Course 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Web Development Basics</h5>
+                        <p class="card-text">Learn the basics of web development, focusing on HTML, CSS, and JavaScript
+                            to build interactive websites.</p>
+                        <a href="course3.html" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Course 4 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Advanced Machine Learning</h5>
+                        <p class="card-text">Dive into advanced topics in machine learning, including neural networks,
+                            deep learning, and AI applications.</p>
+                        <a href="course4.html" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Course 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Database Systems</h5>
+                        <p class="card-text">Understand the principles of database systems, SQL, and NoSQL technologies
+                            for efficient data management.</p>
+                        <a href="course5.html" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Course 6 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Network Security Essentials</h5>
+                        <p class="card-text">Gain insights into the fundamentals of network security, encryption
+                            protocols, and cybersecurity best practices.</p>
+                        <a href="course6.html" class="btn btn-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button to Add New Course -->
+        <div class="row mt-4">
+            <div class="col-md-4 mb-4">
+                <button class="btn btn-success" data-toggle="modal" data-target="#addCourseModal">Add New
+                    Course</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Course Modal -->
+    <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCourseModalLabel">Add New Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newCourseForm">
+                        <div class="form-group">
+                            <label for="courseTitle">Course Title</label>
+                            <input type="text" class="form-control" id="courseTitle" placeholder="Enter course title"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseDescription">Course Description</label>
+                            <textarea class="form-control" id="courseDescription" placeholder="Enter course description"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Course</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="test.js"></script> <!-- Link to your JavaScript file -->
+</body>
+
+</html>
