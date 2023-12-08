@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { checkEmail, register } from '../utils/api';
 import styles from './RegisterForm.module.css'; // Make sure this path is correct
 import { useNavigate  } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -83,37 +85,19 @@ const RegisterForm = () => {
     }
 
     try {
-      await checkEmail(formData.email);
-      const code = '123456'; // Replace with actual code
-      setActualVerificationCode(code);
-      setIsVerificationStage(true);
+      const response = await register(formData, file);
+      toast.success('Registration successful!', {
+        position: "top-center",
+        autoClose: 5000, // you can change the time for how long it shows here
+        onClose: () => navigate('/login'), // Redirect when the toast is closed
+      });
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setErrors(prevErrors => ({ ...prevErrors, email: 'Email already in use' }));
-      } else {
-        console.error('Error checking email:', error);
-      }
+      console.error('Registration error', error.response.data);
+      toast.error('Registration failed. Please try again.');
     }
   };
 
   const navigate = useNavigate();
-
-  const handleVerificationSubmit = async (e) => {
-    e.preventDefault();
-    if (verificationCode === actualVerificationCode) {
-      try {
-        const response = await register(formData, file);
-        console.log(response.data);
-        // Handle successful registration
-        // Navigate to login page
-        navigate('/login'); // Replace '/login' with your actual login route
-      } catch (error) {
-        console.error('Registration error', error.response.data);
-      }
-    } else {
-      alert('Incorrect verification code');
-    }
-  };
   
 
   const inputFields = [
@@ -127,6 +111,7 @@ const RegisterForm = () => {
 
   return (
     <>
+
       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
         Register
       </button>
@@ -138,7 +123,7 @@ const RegisterForm = () => {
               <h5 className="modal-title" id="registerModalLabel">Sign Up</h5>
             </div>
             <div className="modal-body">
-              {!isVerificationStage ? (
+            <ToastContainer />
                 <form onSubmit={handleSubmit} noValidate className="p-4">
                   {inputFields.map(field => (
                     <div key={field.name} className={styles.field}>
@@ -176,17 +161,6 @@ const RegisterForm = () => {
                     <button type="submit" className="btn btn-primary">Register</button>
                   </div>
                 </form>
-              ) : (
-                <form onSubmit={handleVerificationSubmit}>
-                  <input
-                    type="text"
-                    placeholder="Verification Code"
-                    value={verificationCode}
-                    onChange={(e) => setVerificationCode(e.target.value)}
-                  />
-                  <button type="submit">Verify</button>
-                </form>
-              )}
             </div>
           </div>
         </div>

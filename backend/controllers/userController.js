@@ -203,3 +203,39 @@ exports.findById = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const { currentPassword, newPassword } = req.body;
+
+    // Find the user
+    const user = await User.findById(userId).select('+password');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Check if the current password is correct
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Incorrect current password.' });
+    }
+
+    // Validate the new password
+    if (!validator.validatePassword(newPassword)) {
+      return res.status(400).send('New password does not meet the requirements.');
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    console.error('Error during password update:', error);
+    next(error);
+  }
+};
