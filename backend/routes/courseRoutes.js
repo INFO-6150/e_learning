@@ -15,5 +15,6 @@ router.post('/drop', courseController.dropCourse);
 router.get('/professor/:professorId', courseController.getCoursesByProfessor);
 router.get('/:courseId', courseController.getCourseDetails);
 router.get('/:courseId/videos', courseController.getCourseVideos);
+router.get('/student/:studentId', courseController.getCoursesByStudent);
 
 module.exports = router;

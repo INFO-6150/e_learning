@@ -227,3 +227,24 @@ exports.getCourseVideos = async (req, res) => {
   }
 };
 
+
+exports.getCoursesByStudent = async (req, res) => {
+  try {
+    // Replace 'studentId' with the actual parameter you use to pass the student's ID
+    const studentId = req.params.studentId || req.user._id; // Or however you get the student ID
+
+    // Find courses where the 'students' array contains the student ID
+    const courses = await Course.find({ students: studentId })
+
+    res.status(200).json({
+      status: 'success',
+      data: courses,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Error fetching courses for student',
+      error: error.message,
+    });
+  }
+};

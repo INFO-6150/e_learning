@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    enum: ['professor', 'student'],
+    enum: ['professor', 'student', 'admin'],
     required: true
   },
   image: {
