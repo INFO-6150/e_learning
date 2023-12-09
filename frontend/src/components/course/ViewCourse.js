@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchCourseDetails, updateCourseDetails, uploadVideo } from '../utils/api'; // Ensure these functions exist and are imported correctly
 import coursePlaceholder from '../assets/img-placeholder-course.png';
 import Layout from '../header/Layout';
 import './ManageCourse.css'; // Ensure you have this CSS file in your project
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import { useNavigate } from 'react-router-dom';
-import Footer from '../footer/Footer';
+import { useParams, useNavigate } from 'react-router-dom';
+import { fetchCourseDetails, dropCourse } from '../utils/api'; 
 
 const ViewCourse = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
+  const navigate = useNavigate();
+  const storedUserData = localStorage.getItem('user');
+  const userData = JSON.parse(storedUserData);
 
   useEffect(() => {
     const getCourseDetails = async () => {
@@ -21,13 +22,30 @@ const ViewCourse = () => {
     getCourseDetails();
   }, [courseId]);
 
-
+  const handleDropCourse = async () => {
+    if (userData && userData.userId) {
+      try {
+        const response = await dropCourse({
+          studentId: userData.userId,
+          courseId: courseId,
+        });
+        toast.success(response.message);
+        navigate('/studentDash');
+      } catch (error) {
+        console.error('Error dropping the course:', error);
+        toast.error('Failed to drop the course');
+      }
+    } else {
+      toast.error('You need to be logged in to drop a course');
+      navigate('/login');
+    }
+  };
   
   if (!course) return <div>Loading...</div>;
 
   return (
     <Layout>
-        <div className='course-content-wrap'>
+    <div className='course-content-wrap'>
       <ToastContainer />
       <div className="container py-4">
         
@@ -74,8 +92,13 @@ const ViewCourse = () => {
                 </div>
               </div>
             </>
+            <div className="row mt-4">
+          <div className="col">
+            <button className="btn btn-success" onClick={handleDropCourse}>Drop</button>
+          </div>
         </div>
         </div>
+    </div>
       </Layout>
   );
 };

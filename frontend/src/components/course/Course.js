@@ -46,25 +46,25 @@ const Course = () => {
         if (userId && userType === 'student') {
           try {
             const response = await registerForCourse({ studentId: userId, courseId });
-            if (response.status === 200) { // Assuming 200 is the success status code
-              toast.success(response.data.message);
-            } else {
-              toast.warn(response.data.message); // Assuming the message property is sent back by the API
+      
+            // Assuming the promise is resolved, this will be executed
+            console.log('Register response:', response);
+            toast.success(response.message || 'Successfully registered for the course.');
+            if(response.status === '400' ){
+                toast.success(response.message);
             }
+      
           } catch (error) {
-            if (error.response && error.response.status === 400) {
-              // Handle the 400 Bad Request case
-              toast.warn(error.response.data.message);
-            } else {
-              // Handle other errors
-              toast.error('An unexpected error occurred');
-            }
-            console.error(error);
+            // This will be executed if the promise is rejected
+            console.error('Register error:', error);
+            toast.error('Failed to register for the course.');
           }
         } else {
           navigate('/login');
         }
       };
+      
+      
       
 
   if (!course) return <div>Loading...</div>;

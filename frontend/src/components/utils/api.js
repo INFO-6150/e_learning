@@ -175,7 +175,7 @@ export const getAllUsers = async () => {
 export const createCourse = async (formData) => {
   try {
     
-    const response = await api.post('http://localhost:3000/api/courses/create', formData, {
+    const response = await api.post('/api/courses/create', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -184,6 +184,17 @@ export const createCourse = async (formData) => {
   } catch (error) {
     // You can further handle the error (e.g., based on the error status code)
     console.error('There was an error creating the course:', error.response);
+    throw error;
+  }
+};
+
+export const dropCourse = async (data) => {
+  try {
+    // Replace with your actual API endpoint
+    const response = await api.post('/api/courses/drop', data);
+
+    return response.data;
+  } catch (error) {
     throw error;
   }
 };
