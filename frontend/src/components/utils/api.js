@@ -86,3 +86,58 @@ export const updatePassword = async (userId, passwordData) => {
     throw error;
   }
 };
+
+export const viewAllCourses = async (professorId) => {
+  try {
+    
+    const response = await api.get(`/api/courses/professor/${professorId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchCourseDetails = async (courseId) => {
+  try {
+    const response = await api.get(`/api/courses/${courseId}`);
+    return response.data; // Assuming the server responds with the course details in the 'data' key
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to fetch course videos by course ID
+export const fetchCourseVideos = async (courseId) => {
+  try {
+    const response = await api.get(`/api/courses/${courseId}/videos`);
+    return response.data; // Assuming the server responds with the course videos in the 'data' key
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateCourseDetails = async (courseId, formData) => {
+  try {
+    const response = await api.put(`/api/courses/update/${courseId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data; // Assuming the server responds with the updated course
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const uploadVideo = async (courseId, formData) => {
+  try {
+    const response = await api.post(`/api/courses/uploadVideo/${courseId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

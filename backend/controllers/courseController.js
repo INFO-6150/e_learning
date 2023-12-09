@@ -33,23 +33,32 @@ exports.createCourse = async (req, res) => {
   });
 };
 
+
 exports.updateCourse = async (req, res) => {
   try {
-    const updatedCourse = await Course.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-
-    if (!updatedCourse) {
-      return res.status(404).json({ message: 'Course not found' });
+    const { id } = req.params;
+    const updateData = { ...req.body };
+    
+    // Check if a file is included in the request and update the image field
+    if (req.file && req.file.location) {
+      updateData.courseImage = req.file.location;
     }
 
-    res.status(200).json(updatedCourse);
+    // Perform the update, using only the provided fields
+
+    const course = await Course.findByIdAndUpdate(id,  { $set: updateData }, 
+      { new: true, runValidators: true });
+
+    if (!course) {
+      return res.status(404).send('User not found');
+    }
+
+    res.send(course);
   } catch (error) {
-    res.status(400).json({ message: 'Error updating course', error });
+    res.status(500).send(error.message);
   }
 };
+
 
 exports.deleteCourse = async (req, res) => {
   try {
@@ -181,19 +190,6 @@ exports.getCoursesByProfessor = async (req, res) => {
     const { professorId } = req.params;
     // Populate multiple fields, assuming you have other references like 'reviews', 'category', etc.
     const courses = await Course.find({ professor: professorId })
-      // .populate({
-      //   path: 'professor',
-      //   select: 'firstName lastName email image', // select fields you want to include
-      // })
-      // .populate({
-      //   path: 'students',
-      //   select: 'firstName lastName email', // assuming you store references to 'students' in your course
-      // })
-      // Add more populate if needed for other fields like 'reviews', 'category'
-      // .populate('reviews')
-      // .populate('category');
-
-    // If no courses found, return an empty array
     if (!courses.length) {
       return res.status(404).json({ message: 'No courses found for this professor' });
     }
@@ -204,3 +200,30 @@ exports.getCoursesByProfessor = async (req, res) => {
     res.status(500).json({ message: 'Error fetching courses', error });
   }
 };
+
+exports.getCourseDetails = async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).send('Course not found');
+    }
+    res.status(200).json(course);
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
+};
+
+exports.getCourseVideos = async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId).select('videos');
+    if (!course) {
+      return res.status(404).send('Course not found');
+    }
+    res.status(200).json(course.videos);
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
+};
+
