@@ -1,6 +1,9 @@
 $border-color: #ddd;
 $border-radius: 5px;
 $primary-font: Arial, sans-serif;
+$background-color: #333;
+$text-color: white;
+
 
 body {
     font-family: $primary-font;
@@ -9,6 +12,7 @@ body {
     display: flex;
     height: 100vh;
 }
+
 
 .course-container {
     display: flex;
@@ -25,17 +29,21 @@ body {
         padding: 15px;
         overflow-y: auto;
         height: 100vh;
+        padding-bottom: 100px;
+        background-color: #727272;
     }
 
     .course-content,
     .course-video,
     .instructor-details,
     .course-rating,
-    .course-progress {
+    .course-progress,
+    .course-description {
         border: 1px solid $border-color;
         border-radius: $border-radius;
         margin-top: 20px;
         padding: 15px;
+        background-color: #ffffff;
     }
 
     .course-video video {
@@ -59,4 +67,19 @@ body {
         width: 100%;
         height: 20px;
     }
+}
+
+
+.site-footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: $background-color;
+    color: $text-color;
+}
+
+.site-footer {
+    margin-top: 20px; // Add some space between the course container and the footer
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

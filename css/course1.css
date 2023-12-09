@@ -20,16 +20,20 @@ body {
   padding: 15px;
   overflow-y: auto;
   height: 100vh;
+  padding-bottom: 100px;
+  background-color: #727272;
 }
 .course-container .course-content,
 .course-container .course-video,
 .course-container .instructor-details,
 .course-container .course-rating,
-.course-container .course-progress {
+.course-container .course-progress,
+.course-container .course-description {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-top: 20px;
   padding: 15px;
+  background-color: #ffffff;
 }
 .course-container .course-video video {
   width: 100%;
@@ -48,4 +52,18 @@ body {
 .course-container .course-progress progress {
   width: 100%;
   height: 20px;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #333;
+  color: white;
+}
+
+.site-footer {
+  margin-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }/*# sourceMappingURL=course1.css.map */
