@@ -1,0 +1,101 @@
+body {
+  font-family: "Arial", sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  margin-bottom: 0;
+}
+.navbar .nav-link:hover {
+  color: white;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(90deg, rgb(134, 234, 184) 0%, rgb(247, 163, 254) 100%);
+  background-size: cover;
+  background-position: center;
+}
+.hero h1 {
+  color: black;
+  font-weight: bolder;
+}
+.hero p {
+  color: black;
+  font-size: 20px;
+}
+
+/* Courses */
+.courses {
+  background-image: url(../assets/images/background_image11.jpg);
+}
+.courses h2 {
+  font-weight: bold;
+  color: #f9f9f9;
+  padding-bottom: 20px;
+}
+.courses .card {
+  margin-right: 30px;
+  transition: transform 0.3s;
+}
+.courses .card .img-container {
+  height: 150px;
+  overflow: hidden;
+}
+.courses .card .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.courses .card .card-body {
+  flex-grow: 1;
+}
+.courses .card .card-body .card-title {
+  color: black;
+  text-decoration: underline white;
+  text-align: center;
+  font-weight: 700;
+  transition: 0.5s;
+}
+.courses .card .card-body:hover {
+  cursor: pointer;
+}
+.courses .card:hover {
+  transform: scale(1.05);
+  text-decoration: overline red;
+}
+.courses .card-title {
+  color: black;
+  text-decoration: underline white;
+  text-align: center;
+  font-weight: 700;
+  transition: 0.5s;
+}
+
+/* Call to Action */
+.cta {
+  background-color: #f9f9f9;
+}
+
+/* Footer */
+footer h5 {
+  font-weight: bold;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+footer a:hover {
+  color: #ff5733;
+}
+
+header .container .logo {
+  height: 40px;
+  width: auto;
+}
+header .container h1 {
+  font-size: 1.5rem;
+}/*# sourceMappingURL=landing.css.map */
