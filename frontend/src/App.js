@@ -12,6 +12,12 @@ import Explore from './components/course/Explore';
 import PasswordReset from './components/myProfile/PasswordReset';
 import ProfessorDashboard from './components/professorDashboard/ProfDash';
 import ManageCourse from './components/course/manageCourse';
+import StudentDashboard from './components/studentDashboard/StudDash';
+import ViewCourse from './components/course/ViewCourse';
+import Course from './components/course/Course';
+import AdminDashboard from './components/adminDasboard/AdminDash';
+import UserDetails from './components/adminDasboard/userDetails';
+import CreateCourse from './components/course/CreateCourse';
 
 const App = () => {
 
@@ -28,6 +34,12 @@ const App = () => {
             <Route path="/reset" element={<PasswordReset />} />\
             <Route path="/professorDash" element={<ProfessorDashboard />} />
             <Route path="/manageCourses/:courseId" element={<ManageCourse />} />
+            <Route path="/viewCourses/:courseId" element={<ViewCourse />} />
+            <Route path="/courses/:courseId" element={<Course />} />
+            <Route path="/studentDash" element={<StudentDashboard />} />
+            <Route path="/adminDash" element={<AdminDashboard />} />
+            <Route path="/user-details/:userId" element={<UserDetails />} />
+            <Route path="/createCourse/:userId" element={<CreateCourse />} />
             {/* Add other routes here */}
           </Routes>
         </Router>

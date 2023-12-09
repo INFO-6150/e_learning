@@ -6,6 +6,9 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Global Styles */
@@ -214,3 +217,24 @@ a:hover {
     color: #64b5f6;
     /* Darker blue on hover */
 }
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .content {
+    flex: 1 0 auto; /* This ensures that the content section expands */
+  }
+  
+  footer {
+    flex-shrink: 0; /* This ensures that the footer does not shrink */
+  }
+  

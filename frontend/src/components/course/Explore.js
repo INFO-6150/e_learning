@@ -65,7 +65,6 @@ const Explore = () => {
               </div>
             </div>
           </section>
-          <Footer />
         </div>
       </Layout>
     </>

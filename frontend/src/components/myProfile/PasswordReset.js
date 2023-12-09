@@ -89,7 +89,6 @@ const PasswordReset = () => { // Assuming you pass the userId as a prop
       </form>
       </div>
       </div>
-      <Footer />
     </div>
     </Layout>
     </>

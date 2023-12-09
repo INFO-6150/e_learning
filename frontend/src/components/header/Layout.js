@@ -6,6 +6,7 @@ import Header from './header';
 import './Layout.css'; // Path to your Layout CSS
 import UserContext from '../auth/UserContext';
 import { fetchUserDetails } from '../utils/api';
+import Footer from '../footer/Footer';
 
 const Layout = ({ children }) => {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
@@ -37,9 +38,12 @@ const Layout = ({ children }) => {
     {userData ? (
     <SidebarContext.Provider value={{ isNavExpanded, toggleNav }}>
       <SideMenu />
-      <div className={`main-content ${isNavExpanded ? 'expanded' : ''}`}>
+      <div className={`content main-content ${isNavExpanded ? 'expanded' : ''}`}>
         {children}
       </div>
+      <footer className="footer">
+       <Footer/>
+      </footer>
     </SidebarContext.Provider>
     ):(
       <div className="header-main">

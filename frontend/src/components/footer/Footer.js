@@ -1,9 +1,10 @@
 import React from 'react';
 import 'boxicons/css/boxicons.min.css'; // Ensure you have boxicons installed and imported if you're using icons from it
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Footer.css'
 const Footer = () => {
   return (
-    <footer className="bg-dark text-white py-4">
+    <footer className="bg-dark text-white py-4 footer">
       <div className="container">
         <div className="row">
           <div className="col-md-3">

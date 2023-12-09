@@ -106,6 +106,7 @@ const ManageCourse = () => {
 
   return (
     <Layout>
+        <div className='course-content-wrap'>
       <ToastContainer />
       <div className="container py-4">
         {editMode ? (
@@ -229,7 +230,7 @@ const ManageCourse = () => {
             </>
           )}
         </div>
-        <Footer />
+        </div>
       </Layout>
   );
 };

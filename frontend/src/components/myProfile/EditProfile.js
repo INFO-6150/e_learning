@@ -8,6 +8,9 @@ import { updateUserDetails } from '../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../header/header';
 import Layout from '../header/Layout';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../footer/Footer';
 
 const EditProfile = () => {
     const { user } = useContext(UserContext);
@@ -52,13 +55,43 @@ useEffect(() => {
 }, [user]);
 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  // Name validation: only allows letters and space characters
+  if (name === 'firstName' || name === 'lastName') {
+    if (/^[A-Za-z ]*$/.test(value)) {
+      setProfileData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    } else {
+      // You can use toast to inform the user of invalid input
+      toast.error('Names can only contain letters and spaces.');
+    }
+  }
+
+  // Phone number validation: only allows 10 digits
+  if (name === 'phone') {
+    if (/^\d{0,10}$/.test(value)) {
+      setProfileData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    } else {
+      // You can use toast to inform the user of invalid input
+      toast.error('Phone number must be 10 digits.');
+    }
+  }
+
+  // No validation for other fields
+  if (name !== 'firstName' && name !== 'lastName' && name !== 'phone') {
     setProfileData(prevState => ({
       ...prevState,
       [name]: value
     }));
-  };
+  }
+};
 
   const handleFileChange = (e) => {
     // Assuming you want to update the profile image preview immediately
@@ -86,7 +119,6 @@ useEffect(() => {
       formData.append('firstName', profileData.firstName);
       formData.append('lastName', profileData.lastName);
       formData.append('phone', profileData.phone);
-      formData.append('userType', profileData.userType);
   
       // Only append the file to formData if a file was selected
       if (fileInputRef.current?.files.length > 0) {
@@ -99,17 +131,25 @@ useEffect(() => {
       
       // Log the response or handle the UI update
       console.log('Profile updated', response);
+  
+      // Display success message
+      toast.success('Profile updated successfully!');
       
-      // Optionally, navigate to another page or display a success message
+      // Optionally, navigate to another page or refresh the profile
       // navigate('/profile'); // Uncomment if you have 'navigate' from 'useNavigate()'
   
     } catch (error) {
       // Log the error or display an error message
       console.error('Error updating profile:', error);
+  
+      // Display error message
+      toast.error('Failed to update profile. Please try again.');
+  
       // Set an error state here if you have an error handling state in your component
       // setError('Failed to update profile. Please try again.');
     }
   };
+  
 
   const profileImageStyle = {
     width: '150px', // Size of the image
@@ -165,6 +205,7 @@ useEffect(() => {
 
   return (
     <>
+    <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     <Layout>
     <div className="home-page">
     <div className="container mt-5">
@@ -211,11 +252,18 @@ useEffect(() => {
                 </div>
                 <div className="mb-3" style={formElementStyle}>
                   <label htmlFor="phone" style={labelStyle}>Phone</label>
-                  <input type="tel" className="form-control" id="phone" name="phone" style={inputStyle} value={profileData.phone} onChange={handleChange} required />
-                </div>
-                <div className="mb-3" style={formElementStyle}>
-                  <label htmlFor="userType" style={labelStyle}>User Type</label>
-                  <input type="text" className="form-control" id="userType" name="userType" style={inputStyle}  value={profileData.userType} onChange={handleChange} required />
+                  <input
+                    type="text" // Use "text" instead of "tel" to prevent default browser validation
+                    className="form-control"
+                    id="phone"
+                    name="phone"
+                    pattern="\d*" // This ensures the mobile keyboard is numeric
+                    value={profileData.phone}
+                    onChange={handleChange}
+                    style={inputStyle}
+                    maxLength="10" // This prevents the user from entering more than 10 digits
+                    required
+                  />
                 </div>
                 <div style={formElementStyle}>
                   <button type="submit" className="btn btn-primary" style={{ margin: '10px auto', width: '150px' }}>Save Changes</button>
@@ -227,6 +275,7 @@ useEffect(() => {
       </div>
     </div>
     </div>
+    
     </Layout>
     </>
   );

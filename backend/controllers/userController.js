@@ -106,7 +106,7 @@ module.exports = exports;
 
 exports.getAllUsers = async (req, res, next) => {
     try {
-        const users = await User.find().select('firstName lastName email image password');
+        const users = await User.find().select('firstName lastName email image password userType phone');
 
         res.status(200).send({ users });
     } catch (error) {

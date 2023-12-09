@@ -7,6 +7,14 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.course-content-wrap {
+  flex: 1; /* will make sure to take all available space */
+  background-image: url('../assets/explore.jpg'); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .course-details {
   margin-bottom: 1rem;
 }

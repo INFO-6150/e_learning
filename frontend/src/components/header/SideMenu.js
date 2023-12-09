@@ -28,7 +28,9 @@ const SideMenu = () => {
       navigate('/studentDash');
     } else if (role === 'professor') {
       navigate('/professorDash');
-    }
+    } else if (role === 'admin') {
+      navigate('/adminDash');
+    } 
   };
 
   const handleHome = () => {

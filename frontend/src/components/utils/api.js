@@ -141,3 +141,50 @@ export const uploadVideo = async (courseId, formData) => {
     throw error;
   }
 };
+
+export const fetchStudentDetails = async (studentId) => {
+  try {
+    const response = await api.get(`/api/courses/student/${studentId}`);
+    return response.data; // Make sure the backend sends the user data in the response
+  } catch (error) {
+    throw error;
+  }
+};
+
+// api.js
+
+export const registerForCourse = async (registrationDetails) => {
+  try {
+    const response = await api.post(`/api/courses/register`, registrationDetails);
+    return response.data; // The API should send back a success message
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const response = await api.get('/user/getAll');
+    return response.data; // Assuming the server responds with an array of users
+  } catch (error) {
+    console.error("There was a problem fetching user data: ", error);
+    throw error;
+  }
+};
+
+export const createCourse = async (formData) => {
+  try {
+    
+    const response = await api.post('http://localhost:3000/api/courses/create', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data; // Or however your API sends back the success data
+  } catch (error) {
+    // You can further handle the error (e.g., based on the error status code)
+    console.error('There was an error creating the course:', error.response);
+    throw error;
+  }
+};
+
