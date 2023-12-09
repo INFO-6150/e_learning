@@ -29,7 +29,7 @@ body {
 
 /* Courses */
 .courses {
-  background-image: url(../assets/images/background_image31.jpg);
+  background-image: url(../assets/images/background_image51_files.png);
 }
 .courses h2 {
   font-weight: bold;
@@ -37,7 +37,6 @@ body {
   padding-bottom: 20px;
 }
 .courses .card {
-  margin-right: 30px;
   transition: transform 0.3s;
 }
 .courses .card .img-container {
@@ -64,7 +63,6 @@ body {
 }
 .courses .card:hover {
   transform: scale(1.05);
-  text-decoration: overline red;
 }
 .courses .card-title {
   color: black;
